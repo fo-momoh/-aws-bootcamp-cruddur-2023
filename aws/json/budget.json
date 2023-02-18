@@ -6,10 +6,7 @@
     "BudgetName": "CLI-Budget",
     "BudgetType": "COST",
     "CostFilters": {
-        "TagKeyValue": [
-            "user:Key$value1",
-            "user:Key$value2"
-        ]
+        
     },
     "CostTypes": {
         "IncludeCredit": true,
