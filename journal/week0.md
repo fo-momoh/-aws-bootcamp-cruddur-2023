@@ -4,7 +4,7 @@
 
 ## Install and verify AWS CLI
 
-I opted out of using Gitpod or Github Codespaces because I have experience installing and working with AWS CLI locally via WSL. In this case, I installed on Alma Linux and configured it to use my admin user by default. I performed the installation using the following instructions:
+I opted out of using Gitpod or Github Codespaces because I have experience installing and working with AWS CLI locally via WSL. In this case, I installed on Alma Linux and configured it to use my admin user by default. I performed the installation using the following instructions from [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html):
 ```sh
 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
