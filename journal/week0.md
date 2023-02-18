@@ -20,6 +20,6 @@ AWS Secret Access Key [None]: ###############
 Default region name [None]: us-east-1
 Default output format [None]: json
 ```
-![Proof of Functionining AWS CLI](assets/week0/AWSCLI%20Configuration%20Attestation.png)
+![Proof of Functionining AWS CLI](assets/week0/AWSCLI_Configuration_Attestation.png)
 
 ## Homework Challenges
