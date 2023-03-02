@@ -9,7 +9,7 @@ github:
     addBadge: false
 
 tasks:
-  - name: aws-cli
+  - name: workspace setup
     env:
       AWS_CLI_AUTO_PROMPT: on-partial
     init: |
@@ -18,8 +18,7 @@ tasks:
       unzip awscliv2.zip
       sudo ./aws/install
       cd $THEIA_WORKSPACE_ROOT
-  - name: pre-build steps for frontend and backend
-    init: |
+      #pre-build steps for frontend and backend
       # Install requirements for backend-flask container
       cd $THEIA_WORKSPACE_ROOT/backend-flask
       pip3 install -r requirements.txt
