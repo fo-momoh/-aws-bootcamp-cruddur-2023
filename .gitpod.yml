@@ -1,3 +1,13 @@
+github:
+  prebuilds:    
+    master: true    
+    branches: true    
+    pullRequests: true    
+    pullRequestsFromForks: false    
+    addCheck: true    
+    addComment: false    
+    addBadge: false
+
 tasks:
   - name: aws-cli
     env:
@@ -7,6 +17,15 @@ tasks:
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       unzip awscliv2.zip
       sudo ./aws/install
+      cd $THEIA_WORKSPACE_ROOT
+  - name: pre-build steps for frontend and backend
+    init: |
+      # Install requirements for backend-flask container
+      cd $THEIA_WORKSPACE_ROOT/backend-flask
+      pip3 install -r requirements.txt
+      # Initialize npm instll
+      cd $THEIA_WORKSPACE_ROOT/frontend-react-js
+      npm i      
       cd $THEIA_WORKSPACE_ROOT
   - name: postgres
     init: |
