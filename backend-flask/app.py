@@ -21,15 +21,27 @@ from opentelemetry.instrumentation.requests import RequestsInstrumentor
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
 
 # Honeycomb
 # Initialize tracing and an exporter that can send data to Honeycomb
 provider = TracerProvider()
 processor = BatchSpanProcessor(OTLPSpanExporter())
 provider.add_span_processor(processor)
+
+# Will display logs in backend-flaskcontainer logs (STDOUT)
+simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
+provider.add_span_processor(simple_processor)
+
 trace.set_tracer_provider(provider)
 tracer = trace.get_tracer(__name__)
+# with tracer.start_as_current_span("http-handler") as outer_span:
+#    with tracer.start_as_current_span("my-cool-function") as inner_span:
+#        outer_span.set_attribute("outer", True)
+#        inner_span.set_attribute("inner", True)
 
+current_span = trace.get_current_span()
+current_span.set_attribute("operation.value", 1)
 
 app = Flask(__name__)
 
