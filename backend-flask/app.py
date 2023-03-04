@@ -41,6 +41,21 @@ import rollbar
 import rollbar.contrib.flask
 from flask import got_request_exception
 
+class SimpleRequestWithPerson(object):
+    def __init__(self, person_dict):
+        self.rollbar_person = person_dict
+
+old_factory = logging.getLogRecordFactory()
+
+def record_factory(*args, **kwargs):
+    record = old_factory(*args, **kwargs)
+    record.request = SimpleRequestWithPerson({'id': 'id_as_a_string', 'username': 'the_username', 'email': 'email@example.com'})
+    return record
+
+logging.basicConfig(format="%(request)s - %(message)s")
+logging.setLogRecordFactory(record_factory)
+log = logging.getLogger()
+log.warning('this is a warning')
 
 # Configuring Logger to Use CloudWatch
 # LOGGER = logging.getLogger(__name__)
