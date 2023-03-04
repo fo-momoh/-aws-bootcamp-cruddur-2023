@@ -3,11 +3,12 @@
 ## Required Homework
 
 This week was another exciting week with the bootcamp; I learned a lot about working with integrations using SDKs. Understanding how to research and troubleshoot various aspects of not only the flask framework, but using steps to verify connectivity is already yielding fruit in my current role. In addition to the various instrumentation tasks we had this week, I spent a good amount of time configuring the prebuild for my gitpod.yml file. I was having the issue where I would have to manually run the install command for AWSCLI to function properly, but I've now resolve that. Upon startup, Gitpod now does the following:
-	- Installs AWSCLI
-	- Python pip install per the backend-flask/requirements.txt file
-	- NPM install
-	- Installs Postgres
-Opens desired ports for our app functionality (3000, 4567, and 2000 so far)
+    
+        - Installs AWSCLI
+        - Python pip install per the backend-flask/requirements.txt file
+        - NPM install
+        - Installs Postgres
+        - Opens desired ports for our app functionality (3000, 4567, and 2000 so far)
 
 ### Instrument Honeycomb with OTEL
 
@@ -20,6 +21,7 @@ I followed along and successfully set up the console logging and see the spans i
 ### Instrument AWS X-Ray
 
 X-Ray is the service AWS uses for tracing. It's incorporated into CloudWatch and requires the installation of a daemon that acts as middleware between captured requests and the X-Ray endpoint. To instrument X-Ray into our code, we had to accomplish the following:
+	
 	- Update our code to incorporate the X-Ray configurations
 	- Create a group to categorize traces along with a sampling rule
 	- Install the X-ray daemon by updating our docker-compose.yml to spin up a container for the daemon
@@ -44,8 +46,9 @@ Inser Image of LogEvents
 ### Integrate Rollbar and Capture an Error
 
 Reference(s): 
+	
 	- <https://github.com/rollbar/pyrollbar>
-    - <https://github.com/omenking/aws-bootcamp-cruddur-2023/blob/week-2/journal/week2.md#rollbar>
+    	- <https://github.com/omenking/aws-bootcamp-cruddur-2023/blob/week-2/journal/week2.md#rollbar>
 
 Successfully instrumented Rollbar and got the hello-world test to appear in Rollbar after hitting the /rollbar/test api. Had to resolve errors with the missing env vars and the reference the Access token in my docker-compose file. 
 
@@ -56,12 +59,14 @@ I simulated an error similar to what was demonstrated in class by removing the r
 #2 Type Error Image
 
 I wanted to add the "person" context to the error logging and used the following references to guide me to the solution:
+    
     - <https://docs.rollbar.com/docs/person-tracking#python>
     - <https://github.com/rollbar/pyrollbar/issues/321>
 
 Added the following code to app.py
 
-''import logging
+```
+import logging
 
 class SimpleRequestWithPerson(object):
     def __init__(self, person_dict):
@@ -77,7 +82,8 @@ def record_factory(*args, **kwargs):
 logging.basicConfig(format="%(request)s - %(message)s")
 logging.setLogRecordFactory(record_factory)
 log = logging.getLogger()
-log.warning('this is a warning')''
+log.warning('this is a warning')
+```
 
 After adding that code, I tested the /rollbar/test api and saw in the logs that the code was working, but I didn't have a user specified. A SimpleRequestWithPerson object was created. I still need to do some additional research as to how I would pass or hardcode a value to identify a user. Per the text from the Rollbar documentation, I'd have to set up a variable using any of the following: ('id': 'id_as_a_string', 'username': 'the_username', 'email': 'email@example.com')
 
