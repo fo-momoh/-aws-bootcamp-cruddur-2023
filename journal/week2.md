@@ -14,9 +14,11 @@ This week was another exciting week with the bootcamp; I learned a lot about wor
 
 I was able to follow the livestream up to the point where we instrumented Honeycomb with OTEL. I was able to confirm traces were flowing to honeycomb following a restart of my gitpod workspace. I'm working on getting in the habit of restarting my workspace anytime we make changes to env vars and gitpod env vars. The restart took a while, so I was unable to keep up with the livestream instruction, so I started up again by configuring the SimpleSpan Processor to enable console logs to STDOUT. 
 
-Image of Console Logging Here
+![STDOUT](assets/week2/honeycomb-simple-console-logging.png  "Simple Span Console Logging")
 
 I followed along and successfully set up the console logging and see the spans in the backend-flask container logs. The next step was to hardcode a span in preparation for future traces to the databases. I followed along with the stream replay, and added the home.activities attribute along with the custom attributes. This gave me a few ideas around how to add more context around these spans and how to instrument our services. I was still unsure how to create new spans and get the most out of attributes, but I did see there was an interesting feature that allowed one to link spans.
+
+![](assets/week2/honeycomb-query-output.png "Honeycomb Traces")
 
 ### Instrument AWS X-Ray
 
@@ -27,12 +29,17 @@ X-Ray is the service AWS uses for tracing. It's incorporated into CloudWatch and
 	- Install the X-ray daemon by updating our docker-compose.yml to spin up a container for the daemon
 		○ We did this in preparation for running our workloads in ECS/EC2, having the X-Ray daemon in the cluster may be required for reporting.
 	- Validate the service by checking for service data.
+![Created X-Ray Group](assets/week2/added-XRay-group.png)
+
+![Created Sampling Rule](assets/week2/Sampling-Rule-created.png)
 
 I love how doing these functional activities is not only teaching us the core topic but some of the nuances of working with the flask framework. When I ran docker-compose up, the backend-flask container was not serving to port 4567, and I saw in the logs that the python code for the app failed because there was a reference made to a variable name 'app' prior to it being defined. Once the code was adjusted, I was able to see in the logs that segments were being sent successfully to the x-ray endpoint. 
 
-insert Image of "successful sent batch of 1 segments"
+![](assets/week2/xray-segments-sentsuccesfully.png "successful sent batch of 1 segments")
 
-Insert image of Traces
+![](assets/week2/Xray-traces-and-serviceMap1.png "X-Ray Traces and Service Map for backend-flask")
+
+![](assets/week2/xray-individiual-trace.png "Individual X-Ray Trace")
 
 ### Configure Custom Logger to send to CloudWatch Logs
 
@@ -40,8 +47,7 @@ Successfully Implemented CloudWatch logs to test logging into a Log group we cre
 
 Referenced this site for additional guidance: <https://pypi.org/project/watchtower/>
 
-Inser Image of LogEvents
-
+![Instrumented CloudWatch Logs](assets/week2/CloudWatch-logs.png "Instrumented CloudWatch Logs")
 
 ### Integrate Rollbar and Capture an Error
 
@@ -52,11 +58,11 @@ Reference(s):
 
 Successfully instrumented Rollbar and got the hello-world test to appear in Rollbar after hitting the /rollbar/test api. Had to resolve errors with the missing env vars and the reference the Access token in my docker-compose file. 
 
-Image of HelloWorld Rollbar Item
+![HelloWorld Rollbar Item](assets/week2/rollbar-instrumented.png "HelloWorld Rollbar Item")
 
 I simulated an error similar to what was demonstrated in class by removing the return value for the notifications page.
 
-#2 Type Error Image
+![](assets/week2/rollbar-error-example.png "Sample Error")
 
 I wanted to add the "person" context to the error logging and used the following references to guide me to the solution:
     
@@ -87,7 +93,7 @@ log.warning('this is a warning')
 
 After adding that code, I tested the /rollbar/test api and saw in the logs that the code was working, but I didn't have a user specified. A SimpleRequestWithPerson object was created. I still need to do some additional research as to how I would pass or hardcode a value to identify a user. Per the text from the Rollbar documentation, I'd have to set up a variable using any of the following: ('id': 'id_as_a_string', 'username': 'the_username', 'email': 'email@example.com')
 
-
+![](assets/week2/rollbar-tracking-people-integration.png)
 
 # Homework Challenges
 
