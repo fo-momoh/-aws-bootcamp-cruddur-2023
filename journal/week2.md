@@ -34,6 +34,54 @@ Insert image of Traces
 
 ### Configure Custom Logger to send to CloudWatch Logs
 
+Successfully Implemented CloudWatch logs to test logging into a Log group we created previously. Disabled it per the video instructions to reduce spend. I did leave x-ray on however. 
+
+Referenced this site for additional guidance: <https://pypi.org/project/watchtower/>
+
+Inser Image of LogEvents
 
 
 ### Integrate Rollbar and Capture an Error
+
+Reference(s): 
+	- <https://github.com/rollbar/pyrollbar>
+    - <https://github.com/omenking/aws-bootcamp-cruddur-2023/blob/week-2/journal/week2.md#rollbar>
+
+Successfully instrumented Rollbar and got the hello-world test to appear in Rollbar after hitting the /rollbar/test api. Had to resolve errors with the missing env vars and the reference the Access token in my docker-compose file. 
+
+Image of HelloWorld Rollbar Item
+
+I simulated an error similar to what was demonstrated in class by removing the return value for the notifications page.
+
+#2 Type Error Image
+
+I wanted to add the "person" context to the error logging and used the following references to guide me to the solution:
+    - <https://docs.rollbar.com/docs/person-tracking#python>
+    - <https://github.com/rollbar/pyrollbar/issues/321>
+
+Added the following code to app.py
+
+''import logging
+
+class SimpleRequestWithPerson(object):
+    def __init__(self, person_dict):
+        self.rollbar_person = person_dict
+
+old_factory = logging.getLogRecordFactory()
+
+def record_factory(*args, **kwargs):
+    record = old_factory(*args, **kwargs)
+    record.request = SimpleRequestWithPerson({'id': 'id_as_a_string', 'username': 'the_username', 'email': 'email@example.com'})
+    return record
+
+logging.basicConfig(format="%(request)s - %(message)s")
+logging.setLogRecordFactory(record_factory)
+log = logging.getLogger()
+log.warning('this is a warning')''
+
+After adding that code, I tested the /rollbar/test api and saw in the logs that the code was working, but I didn't have a user specified. A SimpleRequestWithPerson object was created. I still need to do some additional research as to how I would pass or hardcode a value to identify a user. Per the text from the Rollbar documentation, I'd have to set up a variable using any of the following: ('id': 'id_as_a_string', 'username': 'the_username', 'email': 'email@example.com')
+
+
+
+# Homework Challenges
+
