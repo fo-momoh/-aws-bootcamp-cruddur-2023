@@ -4,7 +4,7 @@ import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
 
 // [TODO] Authenication
-import { Auth } from 'aws-amplify';
+import Cookies from 'js-cookie'
 
 export default function SignupPage() {
 
@@ -16,21 +16,15 @@ export default function SignupPage() {
   const [errors, setErrors] = React.useState('');
 
   const onsubmit = async (event) => {
-    setCognitoErrors('')
     event.preventDefault();
-    try {
-      Auth.signIn(email, password)
-        .then(user => {
-          localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
-          window.location.href = "/"
-        })
-        .catch(err => { console.log('Error!', err) });
-    } catch (error) {
-      if (error.code == 'UserNotConfirmedException') {
-        window.location.href = "/confirm"
-      }
-      setCognitoErrors(error.message)
-    }
+    console.log('SignupPage.onsubmit')
+    // [TODO] Authenication
+    Cookies.set('user.name', name)
+    Cookies.set('user.username', username)
+    Cookies.set('user.email', email)
+    Cookies.set('user.password', password)
+    Cookies.set('user.confirmation_code',1234)
+    window.location.href = `/confirm?email=${email}`
     return false
   }
 
