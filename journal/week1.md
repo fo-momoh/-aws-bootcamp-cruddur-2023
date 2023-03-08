@@ -13,37 +13,77 @@ I worked on tasks we weren't able to complete during live stream. These tasks in
     - Returning the container id into an Env Var
     - Sent curl to test server
     - Checked container logs
-    - debugged adjacent containers with other containers
     - gained access to a container via docker exec
     - deleted an image.
 
+##### Export Container ID as an Environment Variable
+![Export Container ID as an Environment Variable](assets/week1/export-CONTAINERID-as-envVar.png)
+
+##### Server output of a Curl test
+![Curl test server output](assets/week1/curl-to-test-server-output.png)
+
+##### Docker exec with Container ID Environment Variable
+![Docker exec with Container ID Env Variable](assets/week1/docker%20exec%20with%20container%20id%20env%20var%20attempt.png)
+
+##### After running the rmi command on the backend-flask image, I rebuilt the image as shown in the screenshot
+![Deleted and rebuilt docker image](assets/week1/removed%20and%20re-added%20backend-flask%20image.png)
+
+
 I wasn't able to override ports successfully, but I opted to proceed without too much troubleshooting. Exporting the container id to an env var made subsequent commands easier to execute; I could see how this would be beneficial in other use cases such as scripting. 
 
-![]()
-![]()
-![]()
+
 
 ### Adding DynamoDB Local and Postgres
 
 
-![]()
-![]()
+##### 
+![Successful Postgres Install](assets/week1/successful%20postgres%20install.png)
+![Successful Postgres Install pt2](assets/week1/successful%20postgres%20install%20pt2.png)
+
+##### 
+![Successful DynamoDB table creation](assets/week1/successful%20dynamodb%20attestation.png)
 
 ### Documented the Notification Endpoint for the OpenAI Document
 
 
-![]()
+![OpenAPI Documentation of Notifications Endpoint](assets/week1/openapi-documentation-for-notifications-endpoint.png)
 
 ### Write a Flask Backend Endpoint for Notifications and React Page for Notifications
 
-![]()
-![]()
+
+![Functional Backend Implementation of Notifications Endpoint](assets/week1/backend%20attestation%20of%20notification%20endpoint.png)
+
+
+![Frontend React Notifications Page is Functional](assets/week1/frontend%20implementation%20of%20notifications%20page.png)
 
 ## Homework Challenges
 
 ### Run the Dockerfile CMD as an external script
 
-![]()
+For this task, I opted to use bash for my scripting language and created 2 scripts to perform this. The first script, titled `start_backend_flask.sh`, calls on another script, `issue_startCMD.sh` and does some error handling if the container is already running. The scripts are listed below.
+
+###### start_backend_flask.sh
+```
+#!/bin/bash
+chmod +x issue_startCMD.sh
+echo "starting backend-flask"
+
+./issue_startCMD.sh
+
+retVal=$?
+if [ $retVal -ne 0 ]; then
+    echo "ERROR, port is already in use!!"
+fi
+exit $retVal
+```
+
+###### issue_startCMD.sh
+```
+#!/bin/bash
+python3 -m flask run --host=0.0.0.0 --port=4567
+```
+##### Script executed successfully
+![External Script executing Dockerfile CMD](assets/week1/successful%20external%20CMD%20run.png)
 
 ### Push and tag a image to DockerHub
 
