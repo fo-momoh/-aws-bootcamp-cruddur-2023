@@ -24,8 +24,8 @@ services:
       # Cognito Env Vars
       REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
       REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
-      REACT_APP_AWS_USER_POOLS_ID: "us-east-1_geT0UfQa2"
-      REACT_APP_CLIENT_ID: "2bs3l3i4n7e5ngm2t8m8t6ve8f"
+      REACT_APP_AWS_USER_POOLS_ID: "us-east-1_PJfhlDU6a"
+      REACT_APP_CLIENT_ID: "665fb1n1fc42rgfehq3507k639"
     build: ./frontend-react-js
     ports:
       - "3000:3000"
