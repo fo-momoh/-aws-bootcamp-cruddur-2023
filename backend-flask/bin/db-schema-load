@@ -5,9 +5,10 @@ NO_COLOR='\033[0m'
 LABEL="db-schema-load"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
-echo "db-schema-load"
+ABS_PATH=$(readlink -f "$0")
+BACKEND_DIR="$(dirname "$(dirname "$ABS_PATH")")" 
 
-schema_path="$(realpath ..)/db/schema.sql"
+schema_path="$BACKEND_DIR/db/schema.sql"
 echo "$schema_path"
 
 if ["$1" = "prod"]; then
