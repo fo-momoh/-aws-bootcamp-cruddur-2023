@@ -34,7 +34,7 @@ tasks:
   - command: |
       sudo /workspace/aws/install
       export GITPOD_IP=$(curl ifconfig.me)
-      source "$THEIA_WORKSPACE_ROOT/backend-flask/bin/db-update-sg-rule"      
+      source "$THEIA_WORKSPACE_ROOT/backend-flask/bin/rds-update-sg-rule"      
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
