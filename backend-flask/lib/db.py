@@ -6,14 +6,27 @@ class Db:
     self.init_pool()
   
   def init_pool(self):
-    connection_url = os.getenv("PROD_CONNECTION_URL")
+    connection_url = os.getenv("CONNECTION_URL")
     self.pool = ConnectionPool(connection_url)    
 # Used to commit data such as an insert  
-  def query_commit(self):
+  def query_commit_returning_id(self, sql, *kwargs):
+    print("-----SQL STATEMENT [commit with returning]-----")    
     try:
       conn = self.pool.connection
       cur = conn.cursor() 
-      cur.execute(sql)
+      cur.execute(sql, *kwargs)
+      returning_id = cur.fetchone()[0]
+      conn.commit()
+      return returning_id
+    except Exception as err:
+      self.print_sql_error(err)
+
+  def query_commit(self, sql, *kwargs):
+    print("-----SQL STATEMENT [commit]-----")    
+    try:
+      conn = self.pool.connection
+      cur = conn.cursor() 
+      cur.execute(sql, *kwargs)
       conn.commit()
     except Exception as err:
       # pass exception to function
