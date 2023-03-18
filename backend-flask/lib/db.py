@@ -1,38 +1,50 @@
 from psycopg_pool import ConnectionPool
 import os
+import re
+import sys
+from flask import current_app as app
 
 class Db:
   def __init__(self):
     self.init_pool()
   
-  def init_pool(self):
-    connection_url = os.getenv("CONNECTION_URL")
-    self.pool = ConnectionPool(connection_url)    
-# Used to commit data such as an insert  
-  def query_commit_returning_id(self, sql, *kwargs):
-    print("-----SQL STATEMENT [commit with returning]-----")    
-    try:
-      conn = self.pool.connection
-      cur = conn.cursor() 
-      cur.execute(sql, *kwargs)
-      returning_id = cur.fetchone()[0]
-      conn.commit()
-      return returning_id
-    except Exception as err:
-      self.print_sql_error(err)
+  def template(self, name):
+    template_path = os.path.join(app.root_path,'db','sql',name+'.sql')
+    with open(template_path, 'r') as f:
+      template_content = f.read()
+    return template_content
 
-  def query_commit(self, sql, *kwargs):
-    print("-----SQL STATEMENT [commit]-----")    
+  def init_pool(self):
+    connection_url = os.getenv("PROD_CONNECTION_URL")
+    self.pool = ConnectionPool(connection_url)    
+  
+  def print_sql(self, title, sql):
+    green='\033[1;92m'
+    no_color='\033[0m'
+    print("\n")
+    print(f'{green}-----SQL STATEMENT [{title}]-----{no_color}')    
+    print(sql + "\n")        
+
+# Used to commit data such as an insert 
+# Be sure to for RETURNING in all uppercases
+  def query_commit(self,sql,params):
+    self.print_sql('commit with returning',sql)
+
+    pattern = r"\bRETURNING\b"
+    is_returning_id = re.search(pattern, sql)
+
     try:
-      conn = self.pool.connection
-      cur = conn.cursor() 
-      cur.execute(sql, *kwargs)
-      conn.commit()
+      with self.pool.connection() as conn:
+        cur = conn.cursor() 
+        print(params)
+        cur.execute(sql,params)
+        if is_returning_id:
+          returning_id = cur.fetchone()[0]
+        conn.commit()
+        if is_returning_id:
+          return returning_id
     except Exception as err:
-      # pass exception to function
       self.print_sql_error(err)
-      # rollback the previous transaction before starting another
-      #conn.rollback()
 
 # Used to return an array of json objects
   def query_array_json(self, sql):
