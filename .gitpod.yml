@@ -34,7 +34,7 @@ tasks:
   - command: |
       sudo /workspace/aws/install
       export GITPOD_IP=$(curl ifconfig.me)
-      source "$THEIA_WORKSPACE_ROOT/backend-flask/bin/rds-update-sg-rule"      
+      source "$THEIA_WORKSPACE_ROOT/backend-flask/bin/rds/update-sg-rule"      
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
@@ -53,4 +53,7 @@ ports:
     visibility: public
   - name: postgres
     port: 5432
-    visibility: public    
+    visibility: public
+  - name: dynamodb
+    port: 8000
+    visibility: public        

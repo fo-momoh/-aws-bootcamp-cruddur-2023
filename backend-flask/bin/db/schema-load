@@ -1,17 +1,16 @@
 #! /usr/bin/bash
 
-GREEN='\033[4;32m'
-YELLOW='\033[1;33m'
 CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
-LABEL="db-seed"
+LABEL="db-schema-load"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 ABS_PATH=$(readlink -f "$0")
-BACKEND_DIR="$(dirname "$(dirname "$ABS_PATH")")" 
+BACKEND_DIR="$(dirname "$(dirname "$(dirname "$ABS_PATH")")")"
 
-seed_path="$BACKEND_DIR/db/seed.sql"
-echo "$seed_path"
+
+schema_path="$BACKEND_DIR"/db/schema.sql
+echo "$schema_path"
 
 if [ "$1" = "prod" ]; then
     echo "Running production mode"
@@ -20,4 +19,4 @@ else
     echo "Using dev environment"
     URL=$CONNECTION_URL
 fi
-psql $URL cruddur < $seed_path
+psql $URL cruddur < $schema_path

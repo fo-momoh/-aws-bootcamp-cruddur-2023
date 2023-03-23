@@ -13,12 +13,12 @@ echo -e "${YELLOW}Initializing Database...${NO_COLOR}"
 ABS_PATH=$(readlink -f "$0")
 BACKEND_DIR="$(dirname "$(dirname "$ABS_PATH")")"
 
-bin_path=$BACKEND_DIR/bin
+bin_path=$BACKEND_DIR
 echo $bin_path
 
-source "$bin_path/db-drop"
-source "$bin_path/db-create"
-source "$bin_path/db-schema-load"
-source "$bin_path/db-seed"
+source "$bin_path/db/drop"
+source "$bin_path/db/create"
+source "$bin_path/db/schema-load"
+source "$bin_path/db/seed"
 
 echo -e "${GREEN}Database initialization completed!${NO_COLOR}"
