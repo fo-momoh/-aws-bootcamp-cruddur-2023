@@ -1,5 +1,5 @@
 #! /usr/bin/bash
--e # stop if it fails at any point
+set -e # stop if it fails at any point
 
 GREEN='\033[1;32m'
 YELLOW='\033[1;33m'
