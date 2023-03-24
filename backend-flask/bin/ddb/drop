@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 set -e # stop if it fails at any point
 
-if [ -z "$1" ]; then
+if [ -z $1 ]; then
   echo "No TABLE_NAME argument supplied eg ./bin/ddb/drop cruddur-messages prod"
   exit 1 
 fi
