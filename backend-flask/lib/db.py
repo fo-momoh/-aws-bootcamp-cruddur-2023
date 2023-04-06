@@ -45,7 +45,7 @@ class Db:
 # Used to commit data such as an insert 
 # Be sure to for RETURNING in all uppercases
   def query_commit(self,sql,params={}):
-    self.print_sql('commit with returning',sql)
+    self.print_sql('commit with returning',sql,params)
 
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)

@@ -35,7 +35,7 @@ def get_my_user_uuid():
         )
   """
   uuid = db.query_value(sql,{
-    'handle':  'andrewbrown'
+    'handle':  'fm-test-3'
   })
   return uuid
 
@@ -46,6 +46,7 @@ print(f"my-uuid: {my_user_uuid}")
 query_params = {
   'TableName': table_name,
   'KeyConditionExpression': 'pk = :pk',
+  'ScanIndexForward': False,
   'ExpressionAttributeValues': {
     ':pk': {'S': f"GRP#{my_user_uuid}"}
   },
