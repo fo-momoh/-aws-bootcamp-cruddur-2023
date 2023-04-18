@@ -36,7 +36,7 @@ tasks:
   - command: |
       sudo /workspace/aws/install
       export GITPOD_IP=$(curl ifconfig.me)
-      source "$THEIA_WORKSPACE_ROOT/bin/rds/update-sg-rule"      
+      source "/workspace/aws-bootcamp-cruddur-2023/bin/rds/update-sg-rule"      
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
