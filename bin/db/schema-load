@@ -1,0 +1,23 @@
+#! /usr/bin/bash
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="db-schema-load"
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+ABS_PATH=$(readlink -f "$0")
+BACKEND_PATH="$(dirname "$(dirname "$ABS_PATH")")"
+
+schema_path="$SQL_PATH"/schema.sql
+echo "$ABS_PATH"
+echo "$BACKEND_PATH"
+echo "$schema_path"
+
+# if [ "$1" = "prod" ]; then
+    # echo "Running production mode"
+    # URL=$PROD_CONNECTION_URL
+# else
+    # echo "Using dev environment"
+    # URL=$CONNECTION_URL
+# fi
+# psql $URL cruddur < $schema_path

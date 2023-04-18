@@ -1,0 +1,13 @@
+#! /usr/bin/bash
+
+ABS_PATH=$(readlink -f "$0")
+BACKEND_DIR="$(dirname "$(dirname "$(dirname "$ABS_PATH")")")"
+
+docker_path=$BACKEND_DIR
+echo $docker_path
+
+ecr_path="$docker_path/ecr"
+source "$ecr_path/login"
+
+export ECR_FRONTEND_REACT_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/frontend-react-js"
+echo $ECR_FRONTEND_REACT_URL
