@@ -6,18 +6,17 @@ LABEL="db-schema-load"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 ABS_PATH=$(readlink -f "$0")
-BACKEND_PATH="$(dirname "$(dirname "$ABS_PATH")")"
+BIN_PATH="$(dirname "$(dirname "$ABS_PATH")")"
+PROJECT_PATH="$(dirname "$BIN_PATH")"
+SCHEMA_PATH=$PROJECT_PATH/backend-flask/db/schema.sql
 
-schema_path="$SQL_PATH"/schema.sql
-echo "$ABS_PATH"
-echo "$BACKEND_PATH"
-echo "$schema_path"
+echo "$SCHEMA_PATH"
 
-# if [ "$1" = "prod" ]; then
-    # echo "Running production mode"
-    # URL=$PROD_CONNECTION_URL
-# else
-    # echo "Using dev environment"
-    # URL=$CONNECTION_URL
-# fi
-# psql $URL cruddur < $schema_path
+if [ "$1" = "prod" ]; then
+    echo "Running production mode"
+    URL=$PROD_CONNECTION_URL
+else
+    echo "Using dev environment"
+    URL=$CONNECTION_URL
+fi
+psql $URL cruddur < $SCHEMA_PATH

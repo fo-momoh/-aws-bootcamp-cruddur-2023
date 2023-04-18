@@ -8,8 +8,8 @@ from datetime import datetime, timedelta, timezone
 
 # locates the path of the lib directory with respect to the abs path of the current directory
 current_path = os.path.dirname(os.path.abspath(__file__))
-parent_path = os.path.abspath(os.path.join(current_path, '..', '..','..'))
-sys.path.append(parent_path)
+backend_path = os.path.abspath(os.path.join(current_path, '..', '..','..','backend-flask'))
+sys.path.append(backend_path)
 from lib.db import db
 
 attrs = {

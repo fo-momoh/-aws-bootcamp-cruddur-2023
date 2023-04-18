@@ -8,10 +8,12 @@ LABEL="db-seed"
 printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
 
 ABS_PATH=$(readlink -f "$0")
-BACKEND_DIR="$(dirname "$(dirname "$(dirname "$ABS_PATH")")")"
+DB_PATH="$(dirname "$ABS_PATH")"
+BIN_PATH="$(dirname "$(dirname "$ABS_PATH")")"
+PROJECT_PATH="$(dirname "$BIN_PATH")"
+SEED_PATH=$PROJECT_PATH/backend-flask/db/seed.sql
 
-seed_path="$BACKEND_DIR/db/seed.sql"
-echo "$seed_path"
+echo "$SEED_PATH"
 
 if [ "$1" = "prod" ]; then
     echo "Running production mode"
@@ -20,4 +22,4 @@ else
     echo "Using dev environment"
     URL=$CONNECTION_URL
 fi
-psql $URL cruddur < $seed_path
+psql $URL cruddur < $SEED_PATH
