@@ -9,7 +9,12 @@
     "FARGATE"
     ],
     "containerDefinitions": [
-        {
+      {
+          "name": "xray",
+          "image": "public.ecr.aws/xray/aws-xray-daemon",
+           
+      },  
+      {
           "name": "backend-flask",
           "image": "742648411250.dkr.ecr.us-east-1.amazonaws.com/backend-flask",
           "essential": true,
