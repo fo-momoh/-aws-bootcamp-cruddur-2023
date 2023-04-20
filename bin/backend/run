@@ -2,7 +2,7 @@
 
 ABS_PATH=$(readlink -f "$0")
 PROJECT_PATH="$(dirname "$(dirname "$(dirname "$ABS_PATH")")")"
-ENVFILE_PATH="$PROJECT_PATH/.env.backend-flask"
+ENVFILE_PATH="$PROJECT_PATH/backend-flask.env"
 
 echo $ENVFILE_PATH
 

@@ -2,12 +2,12 @@
 
 ABS_PATH=$(readlink -f "$0")
 PROJECT_PATH="$(dirname "$(dirname "$(dirname "$ABS_PATH")")")"
-ENVFILE_PATH="$PROJECT_PATH/.env.frontend-react-js"
+ENVFILE_PATH="$PROJECT_PATH/frontend-react-js.env"
 
 echo $ENVFILE_PATH
 
 docker run --rm \
     --env-file $ENVFILE_PATH \
     --network cruddur-net \
-    --publish 4567:4567 \
+    --publish 3000:3000 \
     -it frontend-react-js-prod
