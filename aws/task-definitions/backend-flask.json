@@ -13,17 +13,7 @@
           "name": "xray",
           "image": "public.ecr.aws/xray/aws-xray-daemon",
           "essential": "true",
-          "User": "1337",
-          "healthCheck": {  
-            "command": [
-              "CMD-SHELL",
-              "curl -f http://localhost:2000 || exit 1"
-            ],
-            "interval": 30,
-            "timeout": 5,
-            "retries": 3,
-            "startPeriod": 60
-          },          
+          "User": "1337",        
           "portMappings": [
             {
               "name": "backend-flask",
