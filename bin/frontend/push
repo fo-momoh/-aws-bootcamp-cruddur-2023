@@ -14,5 +14,5 @@ export ECR_FRONTEND_REACT_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazo
 echo $ECR_FRONTEND_REACT_URL
 
 # Tag and push image to ECR
-docker tag frontend-react-js:latest $ECR_FRONTEND_REACT_URL:latest
-docker push $ECR_BACKEND_FLASK_URL:latest
+docker tag frontend-react-js-prod:latest $ECR_FRONTEND_REACT_URL:latest
+docker push $ECR_FRONTEND_REACT_URL:latest

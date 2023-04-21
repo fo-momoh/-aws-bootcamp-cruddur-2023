@@ -2,6 +2,7 @@ import './MessageGroupItem.css';
 import { Link } from "react-router-dom";
 import { DateTime } from 'luxon';
 import { format_datetime, message_time_ago, time_ago } from '../lib/DateTimeFormats';
+import { useParams } from 'react-router-dom';
 
 export default function MessageGroupItem(props) {
   const params = useParams();
