@@ -12,14 +12,13 @@
       {
           "name": "xray",
           "image": "public.ecr.aws/xray/aws-xray-daemon",
-          "essential": "true",
-          "User": "1337",        
+          "essential": true,
+          "user": "1337",        
           "portMappings": [
             {
-              "name": "backend-flask",
+              "name": "xray",
               "containerPort": 2000,
-              "protocol": "udp", 
-              "appProtocol": "http"
+              "protocol": "udp" 
             }
           ]          
       },  
