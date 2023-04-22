@@ -31,11 +31,11 @@ tasks:
       pip3 install -r requirements.txt
       # Initialize npm insatll
       cd $THEIA_WORKSPACE_ROOT/frontend-react-js
-      npm i
-      npm install aws-cdk -g        
+      npm i        
       sudo apt install -y postgresql-client-13 libpq-dev                 
   - command: |
       sudo /workspace/aws/install
+      npm install aws-cdk -g
       export GITPOD_IP=$(curl ifconfig.me)
       source "/workspace/aws-bootcamp-cruddur-2023/bin/rds/update-sg-rule" 
       source "$THEIA_WORKSPACE_ROOT/bin/backend/generate-env"
