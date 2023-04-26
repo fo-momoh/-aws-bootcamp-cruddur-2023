@@ -39,6 +39,9 @@ tasks:
   - command: |
       sudo /workspace/aws/install
       npm install aws-cdk -g
+      cd /workspace/aws-bootcamp-cruddur-2023/thumbing-serverless-cdk
+      npm i
+      cp .env.example .env
       export GITPOD_IP=$(curl ifconfig.me)
       source "/workspace/aws-bootcamp-cruddur-2023/bin/rds/update-sg-rule" 
       $THEIA_WORKSPACE_ROOT/bin/backend/generate-env
