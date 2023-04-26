@@ -44,6 +44,7 @@ tasks:
       cp .env.example .env
       export GITPOD_IP=$(curl ifconfig.me)
       source "/workspace/aws-bootcamp-cruddur-2023/bin/rds/update-sg-rule" 
+      cd /workspace/aws-bootcamp-cruddur-2023
       $THEIA_WORKSPACE_ROOT/bin/backend/generate-env
       $THEIA_WORKSPACE_ROOT/bin/frontend/generate-env
 vscode:
