@@ -49,8 +49,8 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     this.createSnsSubscription(snsTopic,webhookUrl)
     
     // add S3 event notifications
-    this.createS3NotifyToSns(folderOutput,snsTopic,uploadsBucket)
-    this.createS3NotifyToLambda(folderInput,lambda,assetsBucket)
+    this.createS3NotifyToSns(folderOutput,snsTopic,assetsBucket)
+    this.createS3NotifyToLambda(folderInput,lambda,uploadsBucket)
     
     // create policies
     const s3UploadsReadWritePolicy = this.createPolicyBucketAccess(uploadsBucket.bucketArn)
@@ -65,7 +65,7 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
   }
 
   createBucket(bucketName: string): s3.IBucket {
-    const bucket = new s3.Bucket(this, 'AssetsBucket', {
+    const bucket = new s3.Bucket(this, 'UploadsBucket', {
       bucketName: bucketName,
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
@@ -97,8 +97,8 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     const destination = new s3n.LambdaDestination(lambda);
       bucket.addEventNotification(
         s3.EventType.OBJECT_CREATED_PUT,
-        destination,
-      {prefix: prefix} // folder to contain the original image
+        destination//,
+      // {prefix: prefix} // folder to contain the original image
       )
   }
   createPolicyBucketAccess(bucketArn: string){

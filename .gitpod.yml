@@ -40,7 +40,7 @@ tasks:
       sudo /workspace/aws/install
       npm install aws-cdk -g
       cd /workspace/aws-bootcamp-cruddur-2023/thumbing-serverless-cdk
-      npm i
+      source "/workspace/aws-bootcamp-cruddur-2023/bin/avatar/build"
       cp .env.example .env
       export GITPOD_IP=$(curl ifconfig.me)
       source "/workspace/aws-bootcamp-cruddur-2023/bin/rds/update-sg-rule" 
