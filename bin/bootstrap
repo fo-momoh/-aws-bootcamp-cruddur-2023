@@ -1,0 +1,20 @@
+#! /usr/bin/bash
+set -e # stop if it fails at any point
+
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="bootstrap"
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+ABS_PATH=$(readlink -f "$0")
+BIN_PATH="$(dirname "$ABS_PATH")"
+
+echo $BIN_PATH
+
+source "$BIN_PATH/ecr/login"
+# 
+# source "$BIN_PATH/db/setup"
+source "$BIN_PATH/ddb/schema-load"
+source "$BIN_PATH/ddb/seed"
