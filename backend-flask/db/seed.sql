@@ -9,7 +9,7 @@ VALUES
 INSERT INTO public.activities (user_uuid, message, expires_at)
 VALUES
   (
-    (SELECT uuid from public.users WHERE users.handle = 'andrewbrown' LIMIT 1),
-    'This was imported as seed data!',
+    (SELECT uuid from public.users WHERE users.handle = 'fm-test-3' LIMIT 1),
+    'Data successfully imported!',
     current_timestamp + interval '10 day'
   )

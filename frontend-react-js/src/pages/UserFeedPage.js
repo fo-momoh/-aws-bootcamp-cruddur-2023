@@ -6,30 +6,35 @@ import DesktopNavigation  from '../components/DesktopNavigation';
 import DesktopSidebar     from '../components/DesktopSidebar';
 import ActivityFeed from '../components/ActivityFeed';
 import ActivityForm from '../components/ActivityForm';
-import EditProfileButton from '../components/EditProfileButton';
+import ProfileHeading from '../components/ProfileHeading';
 
-// [TODO] Authenication
-import Cookies from 'js-cookie'
+import {checkAuth, getAccessToken} from '../lib/CheckAuth';
+
 
 export default function UserFeedPage() {
   const [activities, setActivities] = React.useState([]);
   const [profile, setProfile] = React.useState([]);
   const [popped, setPopped] = React.useState([]);
+  const [poppedProfile, setPoppedProfile] = React.useState([]);
   const [user, setUser] = React.useState(null);
   const dataFetchedRef = React.useRef(false);
 
   const params = useParams();
-  const title = `@${params.handle}`;
 
   const loadData = async () => {
     try {
-      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/${title}`
+      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/@${params.handle}`
+      await getAccessToken()
+      const access_token = localStorage.getItem("access_token")
       const res = await fetch(backend_url, {
+        headers: {
+          Authorization: `Bearer ${access_token}`
+        },        
         method: "GET"
       });
       let resJson = await res.json();
       if (res.status === 200) {
-        setActivities(resJson.profile)
+        setProfile(resJson.profile)
         setActivities(resJson.activities)
       } else {
         console.log(res)
@@ -39,16 +44,6 @@ export default function UserFeedPage() {
     }
   };
 
-  const checkAuth = async () => {
-    console.log('checkAuth')
-    // [TODO] Authenication
-    if (Cookies.get('user.logged_in')) {
-      setUser({
-        display_name: Cookies.get('user.name'),
-        handle: Cookies.get('user.username')
-      })
-    }
-  };
 
   React.useEffect(()=>{
     //prevents double call
@@ -56,7 +51,7 @@ export default function UserFeedPage() {
     dataFetchedRef.current = true;
 
     loadData();
-    checkAuth();
+    checkAuth(setUser);
   }, [])
 
   return (
@@ -66,9 +61,11 @@ export default function UserFeedPage() {
         <ActivityForm popped={popped} setActivities={setActivities} />
         
         <div className='activity_feed'>
-          <div className='activity_feed_heading'>
-            <div className='title'>{title}</div>
-          </div>          
+          <ProfileHeading setPopped={setPoppedProfile} profile={profile} />
+          <div className='activity_feed_heading profile_heading'>
+            <div className='title'>{profile.display_name}</div>
+            <div className="cruds_count">{profile.cruds_count} Cruds</div>          
+          </div>
           <ActivityFeed activities={activities} />
         </div>
       </div>

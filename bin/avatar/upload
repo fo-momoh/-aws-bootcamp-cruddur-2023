@@ -3,7 +3,7 @@
 ABS_PATH=$(readlink -f "$0")
 BIN_PATH="$(dirname "$(dirname "$ABS_PATH")")"
 AVATAR_PATH="$BIN_PATH/avatar"
-DATA_FILE="$AVATAR_PATH/files/data.jpg"
+DATA_FILE="$AVATAR_PATH/files/data1.jpg"
 
 echo $DATA_FILE
 
