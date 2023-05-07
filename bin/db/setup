@@ -21,5 +21,6 @@ source "$BIN_PATH/db/create"
 source "$BIN_PATH/db/schema-load"
 source "$BIN_PATH/db/seed"
 python "$BIN_PATH/db/update_cognito_user_ids"
+python "$BIN_PATH/db/migrate"
 
 echo -e "${GREEN}Database initialization completed!${NO_COLOR}"
