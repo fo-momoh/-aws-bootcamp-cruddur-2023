@@ -1,8 +1,11 @@
 import './ProfileHeading.css';
 import EditProfileButton from '../components/EditProfileButton';
 
+import ProfileAvatar from './ProfileAvatar';
+
+
 export default function ProfileHeading(props) {
-  const backgroundImage = 'url("https://assets.cruddur.promomoh.org/banners/galaxy.jpg")';
+  const backgroundImage = 'url("https://assets.cruddur.promomoh.org/banners/airj.jpg")';
   const styles = {
     backgroundImage: backgroundImage,
     backgroundSize: 'cover',
@@ -13,9 +16,7 @@ export default function ProfileHeading(props) {
     <div className='title'>{props.profile.display_name}</div>
     <div className="cruds_count">{props.profile.cruds_count} Cruds</div>
     <div className="banner" style={styles}>
-      <div className="avatar">
-          <img src="https://assets.cruddur.promomoh.org/avatars/data1.jpg"></img>
-      </div>
+      <ProfileAvatar id={props.profile.cognito_user_uuid}></ProfileAvatar>
     </div>
     <div className="info">
       <div className="id">
