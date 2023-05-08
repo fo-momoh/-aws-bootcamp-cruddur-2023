@@ -25,21 +25,29 @@ tasks:
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       unzip awscliv2.zip
       cd $THEIA_WORKSPACE_ROOT
-      #pre-build steps for frontend and backend
+      # pre-build steps for frontend and backend
       # Install requirements for backend-flask container
       cd $THEIA_WORKSPACE_ROOT/backend-flask
       pip3 install -r requirements.txt
+      pip install cfn-lint
       # Initialize npm insatll
       cd $THEIA_WORKSPACE_ROOT/frontend-react-js
-      npm i
-      npm install aws-cdk -g        
-      sudo apt install -y postgresql-client-13 libpq-dev                 
+      npm i        
+      sudo apt install -y postgresql-client-13 libpq-dev
+      # Install CFN Guard
+      cargo install cfn-guard               
   - command: |
       sudo /workspace/aws/install
+      npm install aws-cdk -g
+      cd /workspace/aws-bootcamp-cruddur-2023/thumbing-serverless-cdk
+      source "/workspace/aws-bootcamp-cruddur-2023/bin/avatar/build"
+      cp .env.example .env
       export GITPOD_IP=$(curl ifconfig.me)
       source "/workspace/aws-bootcamp-cruddur-2023/bin/rds/update-sg-rule" 
-      source "$THEIA_WORKSPACE_ROOT/bin/backend/generate-env"
-      source "$THEIA_WORKSPACE_ROOT/bin/frontend/generate-env"
+      cd /workspace/aws-bootcamp-cruddur-2023
+      $THEIA_WORKSPACE_ROOT/bin/backend/generate-env
+      $THEIA_WORKSPACE_ROOT/bin/frontend/generate-env
+      bash /bin/ecr/login
 vscode:
   extensions:
     - 42Crunch.vscode-openapi
