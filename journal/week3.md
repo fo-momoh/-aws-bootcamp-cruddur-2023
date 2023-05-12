@@ -1,5 +1,11 @@
 # Week 3 — Decentralized Authentication
 
+## Lecture Videos
+
+   - [FREE AWS Cloud Project Bootcamp (Week 3) - Decentralized Authenication](https://www.youtube.com/watch?v=9obl7rVgzJw&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=41)
+   - [Week 3 Cognito Custom Pages!](https://www.youtube.com/watch?v=T4X4yIzejTc&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=42)
+   - [Week 3 Congito JWT Server side Verify](https://www.youtube.com/watch?v=d079jccoG-M&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=43)
+   - [Week 3 - Exploring JWTs](https://www.youtube.com/watch?v=nJjbI4BbasU&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=44)
 
 ## Required Homework
 
